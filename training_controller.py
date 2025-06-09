@@ -46,7 +46,7 @@ def init_create_file():
         shutil.rmtree('TEST/excel_error')
         shutil.rmtree('TEST/patch_error')
         shutil.rmtree('TEST/remove_patch')
-        shutil.rmtree("/work/rara0857/BASELINE3/PROCESSED_DATA/CASE_UUID/{}_pseudo".format(project))
+        shutil.rmtree("/work/rara0857/Baseline3/PROCESSED_DATA/CASE_UUID/{}_pseudo".format(project))
         shutil.rmtree('TRAIN/prev_logs')         
     except:
         pass
@@ -68,7 +68,7 @@ def init_create_file():
     os.makedirs('TEST/remove_patch/tumor', exist_ok = True)
     os.makedirs('TEST/remove_patch/normal', exist_ok = True)
     os.makedirs('TRAIN/prev_logs', exist_ok = True)
-    os.makedirs("/work/rara0857/BASELINE3/PROCESSED_DATA/CASE_UUID/{}_pseudo".format(project), exist_ok = True)
+    os.makedirs("/work/rara0857/Baseline3/PROCESSED_DATA/CASE_UUID/{}_pseudo".format(project), exist_ok = True)
 
 
 
