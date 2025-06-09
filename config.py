@@ -16,10 +16,10 @@ val_list_path = 'val_list.txt'
 work_root_path = os.path.join('/work', os.listdir('/work')[0])
 
 config = {
-    "preprocess_save_path":f'{work_root_path}/DATA/PROCESSED_DATA/CASE_UUID',
-    "annotation_json_path":f'{work_root_path}/DATA/RAW_DATA/USER_ANNOTATIONS',
-    "wsi_root_path":f'{work_root_path}/DATA/RAW_DATA/RAW_IMAGE',
-    "data_pkl_path":f'{work_root_path}/DATA/PROCESSED_DATA/CASE_UUID/',
+    "preprocess_save_path":f'{work_root_path}/PROCESSED_DATA/CASE_UUID',
+    "annotation_json_path":f'{work_root_path}/RAW_DATA/USER_ANNOTATIONS',
+    "wsi_root_path":f'{work_root_path}/RAW_DATA/RAW_IMAGE',
+    "data_pkl_path":f'{work_root_path}/PROCESSED_DATA/CASE_UUID/',
     "level":0,
     "patch_size" :256,
     "stride_size":128,

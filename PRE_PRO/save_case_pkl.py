@@ -9,7 +9,7 @@ import logging
 import pyvips
 
 sys.path.append(r'../')
-from config import config
+#from config import config
 
 
 def detect_background(img):
