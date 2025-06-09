@@ -1,0 +1,15 @@
+{"time":"2025-05-15T16:12:35.328169056+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.10","symlink path":"/home/rara0857/Baseline3/TRAIN/wandb/run-20250515_161235-vj9kxibi/logs/debug-core.log"}
+{"time":"2025-05-15T16:12:35.696647707+08:00","level":"INFO","msg":"created new stream","id":"vj9kxibi"}
+{"time":"2025-05-15T16:12:35.69675375+08:00","level":"INFO","msg":"stream: started","id":"vj9kxibi"}
+{"time":"2025-05-15T16:12:35.696792138+08:00","level":"INFO","msg":"handler: started","stream_id":"vj9kxibi"}
+{"time":"2025-05-15T16:12:35.696802267+08:00","level":"INFO","msg":"sender: started","stream_id":"vj9kxibi"}
+{"time":"2025-05-15T16:12:35.696871674+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"vj9kxibi"}
+{"time":"2025-05-15T16:12:36.012614599+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-15T16:12:36.120635294+08:00","level":"INFO","msg":"stream: closing","id":"vj9kxibi"}
+{"time":"2025-05-15T16:12:36.120682314+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-15T16:12:36.120753634+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-15T16:12:37.615080091+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-15T16:12:37.95959556+08:00","level":"INFO","msg":"handler: closed","stream_id":"vj9kxibi"}
+{"time":"2025-05-15T16:12:37.95969767+08:00","level":"INFO","msg":"sender: closed","stream_id":"vj9kxibi"}
+{"time":"2025-05-15T16:12:37.959681187+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"vj9kxibi"}
+{"time":"2025-05-15T16:12:37.959908018+08:00","level":"INFO","msg":"stream: closed","id":"vj9kxibi"}

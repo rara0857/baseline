@@ -1,0 +1,15 @@
+{"time":"2025-05-27T16:42:44.818618362+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.10","symlink path":"/work/rara0857/Baseline3/TRAIN/wandb/run-20250527_164244-prapi7lc/logs/debug-core.log"}
+{"time":"2025-05-27T16:42:45.212709323+08:00","level":"INFO","msg":"created new stream","id":"prapi7lc"}
+{"time":"2025-05-27T16:42:45.212798793+08:00","level":"INFO","msg":"stream: started","id":"prapi7lc"}
+{"time":"2025-05-27T16:42:45.212832958+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"prapi7lc"}
+{"time":"2025-05-27T16:42:45.212866837+08:00","level":"INFO","msg":"handler: started","stream_id":"prapi7lc"}
+{"time":"2025-05-27T16:42:45.212994419+08:00","level":"INFO","msg":"sender: started","stream_id":"prapi7lc"}
+{"time":"2025-05-27T16:42:45.55244937+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-27T16:42:45.662831655+08:00","level":"INFO","msg":"stream: closing","id":"prapi7lc"}
+{"time":"2025-05-27T16:42:45.662880309+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-27T16:42:45.662926329+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-27T16:42:46.86656634+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-27T16:42:47.112475663+08:00","level":"INFO","msg":"handler: closed","stream_id":"prapi7lc"}
+{"time":"2025-05-27T16:42:47.112523296+08:00","level":"INFO","msg":"sender: closed","stream_id":"prapi7lc"}
+{"time":"2025-05-27T16:42:47.112522575+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"prapi7lc"}
+{"time":"2025-05-27T16:42:47.112758618+08:00","level":"INFO","msg":"stream: closed","id":"prapi7lc"}

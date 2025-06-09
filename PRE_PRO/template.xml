@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ASAP_Annotations>
+    <Annotations>
+        
+
+
+    </Annotations>
+    <AnnotationGroups>
+		<Group Name="tumor" PartOfGroup="None" Color="#64FE2E">
+			<Attributes />
+		</Group>
+		<Group Name="bleeding" PartOfGroup="None" Color="#64FE2E">
+			<Attributes />
+		</Group>
+		<Group Name="else" PartOfGroup="None" Color="#64FE2E">
+			<Attributes />
+		</Group>
+	</AnnotationGroups>
+</ASAP_Annotations>

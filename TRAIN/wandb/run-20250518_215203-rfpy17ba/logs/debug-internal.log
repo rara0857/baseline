@@ -1,0 +1,15 @@
+{"time":"2025-05-18T21:52:03.742419554+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.10","symlink path":"/work/rara0857/Baseline3/TRAIN/wandb/run-20250518_215203-rfpy17ba/logs/debug-core.log"}
+{"time":"2025-05-18T21:52:06.124241525+08:00","level":"INFO","msg":"created new stream","id":"rfpy17ba"}
+{"time":"2025-05-18T21:52:06.124376759+08:00","level":"INFO","msg":"stream: started","id":"rfpy17ba"}
+{"time":"2025-05-18T21:52:06.124497985+08:00","level":"INFO","msg":"handler: started","stream_id":"rfpy17ba"}
+{"time":"2025-05-18T21:52:06.124548373+08:00","level":"INFO","msg":"sender: started","stream_id":"rfpy17ba"}
+{"time":"2025-05-18T21:52:06.124652986+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"rfpy17ba"}
+{"time":"2025-05-18T21:52:06.547566476+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-18T21:52:08.053786592+08:00","level":"INFO","msg":"stream: closing","id":"rfpy17ba"}
+{"time":"2025-05-18T21:52:08.053857136+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-18T21:52:08.053880389+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-18T21:52:09.161974693+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-18T21:52:09.433353778+08:00","level":"INFO","msg":"handler: closed","stream_id":"rfpy17ba"}
+{"time":"2025-05-18T21:52:09.4334178+08:00","level":"INFO","msg":"sender: closed","stream_id":"rfpy17ba"}
+{"time":"2025-05-18T21:52:09.433415134+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"rfpy17ba"}
+{"time":"2025-05-18T21:52:09.433766046+08:00","level":"INFO","msg":"stream: closed","id":"rfpy17ba"}

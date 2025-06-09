@@ -1,0 +1,15 @@
+{"time":"2025-05-15T16:54:32.169059628+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.10","symlink path":"/work/rara0857/Baseline3/TRAIN/wandb/run-20250515_165432-pokjsl6o/logs/debug-core.log"}
+{"time":"2025-05-15T16:54:32.493061101+08:00","level":"INFO","msg":"created new stream","id":"pokjsl6o"}
+{"time":"2025-05-15T16:54:32.493179288+08:00","level":"INFO","msg":"stream: started","id":"pokjsl6o"}
+{"time":"2025-05-15T16:54:32.493254196+08:00","level":"INFO","msg":"sender: started","stream_id":"pokjsl6o"}
+{"time":"2025-05-15T16:54:32.49339623+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"pokjsl6o"}
+{"time":"2025-05-15T16:54:32.493185615+08:00","level":"INFO","msg":"handler: started","stream_id":"pokjsl6o"}
+{"time":"2025-05-15T16:54:32.772642368+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-15T16:54:32.882756409+08:00","level":"INFO","msg":"stream: closing","id":"pokjsl6o"}
+{"time":"2025-05-15T16:54:32.88281383+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-15T16:54:32.882844296+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-15T16:54:34.460986562+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-15T16:54:34.741861052+08:00","level":"INFO","msg":"handler: closed","stream_id":"pokjsl6o"}
+{"time":"2025-05-15T16:54:34.741941659+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"pokjsl6o"}
+{"time":"2025-05-15T16:54:34.741963686+08:00","level":"INFO","msg":"sender: closed","stream_id":"pokjsl6o"}
+{"time":"2025-05-15T16:54:34.742182898+08:00","level":"INFO","msg":"stream: closed","id":"pokjsl6o"}

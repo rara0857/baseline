@@ -1,0 +1,15 @@
+{"time":"2025-05-15T15:10:06.458725309+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.10","symlink path":"/home/rara0857/Baseline3/TRAIN/wandb/run-20250515_151006-bdgs5xby/logs/debug-core.log"}
+{"time":"2025-05-15T15:10:06.830977986+08:00","level":"INFO","msg":"created new stream","id":"bdgs5xby"}
+{"time":"2025-05-15T15:10:06.831108584+08:00","level":"INFO","msg":"stream: started","id":"bdgs5xby"}
+{"time":"2025-05-15T15:10:06.831199924+08:00","level":"INFO","msg":"handler: started","stream_id":"bdgs5xby"}
+{"time":"2025-05-15T15:10:06.831260281+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"bdgs5xby"}
+{"time":"2025-05-15T15:10:06.831209371+08:00","level":"INFO","msg":"sender: started","stream_id":"bdgs5xby"}
+{"time":"2025-05-15T15:10:07.171879785+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-15T15:10:08.370173525+08:00","level":"INFO","msg":"stream: closing","id":"bdgs5xby"}
+{"time":"2025-05-15T15:10:08.370258705+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-15T15:10:08.3702989+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-15T15:10:09.464541198+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-15T15:10:09.734250983+08:00","level":"INFO","msg":"handler: closed","stream_id":"bdgs5xby"}
+{"time":"2025-05-15T15:10:09.734279757+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"bdgs5xby"}
+{"time":"2025-05-15T15:10:09.734298274+08:00","level":"INFO","msg":"sender: closed","stream_id":"bdgs5xby"}
+{"time":"2025-05-15T15:10:09.734512478+08:00","level":"INFO","msg":"stream: closed","id":"bdgs5xby"}

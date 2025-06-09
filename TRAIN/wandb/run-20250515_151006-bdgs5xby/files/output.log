@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "main_execution.py", line 372, in <module>
+    ClassifyModel(config, max_iterator_num).trainer()
+  File "main_execution.py", line 31, in __init__
+    self.data_loader()
+  File "main_execution.py", line 55, in data_loader
+    dataloader = TumorDataModule(self.config)
+  File "/home/rara0857/Baseline3/TRAIN/dataloader.py", line 32, in __init__
+    datasets = TumorDataset(self.config, self.train_transform, 'train')
+  File "/home/rara0857/Baseline3/TRAIN/dataset.py", line 26, in __init__
+    self.datas = self.load_data_pkl(self.data_list)
+  File "/home/rara0857/Baseline3/TRAIN/dataset.py", line 63, in load_data_pkl
+    with open(data_pkl, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/work/rara0857/DATA/PROCESSED_DATA/CASE_UUID/c197335d-5d97-4da2-b4ae-2924a30f30ec/c197335d-5d97-4da2-b4ae-2924a30f30ec.pkl'
