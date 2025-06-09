@@ -71,7 +71,7 @@ def get_data(pack):
                      shape=[patch_size, patch_size, slide.bands])
     
     wsi_name = data[0].split('/')[-1].split('.')[0]
-    gt_mask_path = f'/work/rara0857/BASELINE3/liver/masks/{wsi_name}_mask.tif'
+    gt_mask_path = f'/work/rara0857/Baseline3/liver/masks/{wsi_name}_mask.tif'
     gt_mask = read2patch(gt_mask_path, data[2], data[3],level=0)
     if 255 in gt_mask:
         tumor_label = 1

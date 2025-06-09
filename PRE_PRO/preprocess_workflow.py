@@ -14,7 +14,7 @@ def read_file_list(filename):
 UUID = read_file_list('download_list.txt')
 
 for case in UUID:
-    os.makedirs("/work/rara0857/BASELINE3/PROCESSED_DATA/SAVE_PKL/" + case, exist_ok = True)
+    os.makedirs("/work/rara0857/Baseline3/PROCESSED_DATA/SAVE_PKL/" + case, exist_ok = True)
     os.system(f"python save_case_pkl.py {case}")
     print(f"python save_case_pkl.py {case}")
 
