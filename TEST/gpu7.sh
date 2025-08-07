@@ -1,0 +1,6 @@
+python indeterminate_Inference_pyvips.py 7e9de620-3bb6-4bb6-9a1e-181c04ec8bda 7 "$1"
+python indeterminate_Inference_pyvips.py 497fa7e9-6eb9-42ad-a5fa-bb7361945163 7 "$1"
+python indeterminate_Inference_pyvips.py 2986bae1-732b-4b53-ab2d-cb988f06466e 7 "$1"
+python indeterminate_Inference_pyvips.py aee559f9-d690-4191-bcf5-d22d495f91f9 7 "$1"
+python indeterminate_Inference_pyvips.py d8b9147a-de73-479a-bc1d-772c44826f61 7 "$1"
+python indeterminate_Inference_pyvips.py fd019f47-359f-48d9-818e-b7c0b4410269 7 "$1"
