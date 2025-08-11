@@ -50,7 +50,12 @@ class ClassifyModel():
         self.unlabel_iter = 20
         self.pseudo_list = self.read_file_list('../unlabel_list.txt')
         self.pseudo_count = 0
-
+        self.best_weight_name = os.path.join(
+            self.config['log_string_dir'], 
+            self.config['checkpoint_path']
+        )
+        
+        os.makedirs(self.config['log_string_dir'], exist_ok=True)
     def data_loader(self):
         dataloader = TumorDataModule(self.config)
         aug_dataloader = Aug_TumorDataModule(self.config)
@@ -73,17 +78,20 @@ class ClassifyModel():
     def init_setting(self):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         
-        # logging
         MODEL_CKPT = self.config['log_string_dir']
-        # create log/weight folder
         if not os.path.exists(MODEL_CKPT):
             os.system("mkdir " + MODEL_CKPT)
         if self.config['is_train'] == True:
             self.SAVE_MODEL = MODEL_CKPT
 
-        self.best_weight_name = self.config["log_string_dir"] + self.config["checkpoint_path"]
+            self.best_weight_name = os.path.join(
+                self.config['log_string_dir'], 
+                self.config['checkpoint_path']
+            )
+            
+            # 確保目錄存在
+            os.makedirs(self.config['log_string_dir'], exist_ok=True)
 
-        # set wandb
         self.wandb = wandb
         self.wandb.init(project = self.project)
         self.wandb.config.max_iterator_num = self.train_iter
@@ -102,8 +110,8 @@ class ClassifyModel():
             self.global_val_loss = float(text[1])
 
             self.step = int(model_checkpoint_path)
-            best_weight = self.config['log_string_dir'] + f"model.ckpt-{self.step}.pt"
-            checkpoint_weight = self.config["log_string_dir"]+best_weight
+            best_weight = os.path.join(self.config['log_string_dir'], f"model.ckpt-{self.step}.pt")
+            checkpoint_weight = best_weight
             checkpoint = torch.load(checkpoint_weight)
             self.model.load_state_dict(checkpoint['model_state_dict'])
 
@@ -111,26 +119,20 @@ class ClassifyModel():
             self.step = 0
             self.global_val_loss = 0
 
-        self.grad_scaler = torch.cuda.amp.GradScaler(enabled = self.use_amp)
-
-
-        self.optimizer = torch.optim.Adam(self.model.parameters(), lr = self.config['lr'])
-#         decay_rate = 0.75
-#         decay_steps = 7500
-#         gamma = decay_rate ** (self.step / decay_steps)
-#         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=decay_steps, gamma=decay_rate) # update every 7500 steps
-        self.scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(self.optimizer, T_0 = 2000, T_mult = 1)
-
+        self.grad_scaler = torch.amp.GradScaler('cuda', enabled=self.use_amp)
+        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.config['lr'])
+        self.scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(self.optimizer, T_0=2000, T_mult=1)
+        
     def forward_step(self, batch, istrain = True):
         img_high, img_low, label, case = batch
         if istrain:
             self.pseudo_count += sum(np.isin(np.array(case), np.array(self.pseudo_list)))
         img_high, img_low, label = img_high.to(self.device), img_low.to(self.device), label.to(self.device)
         label = np.squeeze(label)
-        with torch.cuda.amp.autocast():
+        with torch.amp.autocast('cuda'):
             prob = self.model(img_high, img_low)
             loss = self.ce(prob, label)
-        return prob,label,loss
+        return prob, label, loss
     
     def aug_forward_step(self, batch):
         image_20x_identity, image_5x_identity, image_20x_aug, image_5x_aug, label, case = batch
@@ -228,11 +230,14 @@ class ClassifyModel():
                     # save best weight
                     torch.save({
                         'model_state_dict': self.model.state_dict(),
-                    }, self.SAVE_MODEL + "/" + "best_model.pt")
+                    }, os.path.join(self.SAVE_MODEL, "best_model.pt"))
                     print("------SAVE INITIAL WEIGHT-------")
                     self.global_val_loss = l_
 
-                    self.best_weight_name = self.config["log_string_dir"] + self.config["checkpoint_path"]
+                    self.best_weight_name = os.path.join(
+                        self.config["log_string_dir"], 
+                        self.config["checkpoint_path"]
+                    )
                     with open(self.best_weight_name, 'w') as f:
                         f.write(str((iterator_num + int(self.step / train_batch_size)) * train_batch_size))
                         f.write(str(self.global_val_loss))
@@ -245,14 +250,14 @@ class ClassifyModel():
                     print('\tSave model: ' + str((iterator_num + int(self.step / train_batch_size)) * train_batch_size))
                     torch.save({
                         'model_state_dict': self.model.state_dict(),
-                    }, self.SAVE_MODEL + "/" + "model.ckpt-" + str((iterator_num + int(self.step / train_batch_size)) * train_batch_size)+ ".pt")
+                    }, os.path.join(self.SAVE_MODEL, f"model.ckpt-{(iterator_num + int(self.step / train_batch_size)) * train_batch_size}.pt"))
                     
                     self.global_val_loss = l_
                     print('-----------------------------------------')
                     # save best weight
                     torch.save({
                         'model_state_dict': self.model.state_dict(),
-                    }, self.SAVE_MODEL + "/" + "best_model.pt")
+                    }, os.path.join(self.SAVE_MODEL, "best_model.pt"))
                     
             if iterator_num % 200 == 0 and iterator_num > 0:
                 

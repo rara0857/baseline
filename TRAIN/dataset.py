@@ -16,13 +16,17 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 class TumorDataset(Dataset):
     def __init__(self, config,transform, type_str='train'):
         super().__init__()
-        # print(self.datas)
         self.config = config
         self.transform = transform
         self.type_str = type_str
 
         self.data_list = config[type_str+'_list']
-        self.project = os.getcwd().split('/')[3] + "_pseudo"
+        
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        PROJECT_ROOT = os.path.dirname(BASE_DIR)
+        PROJECT_NAME = os.path.basename(PROJECT_ROOT)
+        self.project = f"{PROJECT_NAME}_pseudo"
+        
         self.datas = self.load_data_pkl(self.data_list)
         
         
@@ -48,30 +52,56 @@ class TumorDataset(Dataset):
         print(self.project)
         data = []
         for case in case_list:
-            if case == self.project:
-                print("preparing dataset pseudo label")
-                for pl_pkl in os.listdir(self.config["pseudo_label_path"]):
-                    print(pl_pkl)
-                    data_pkl = self.config["pseudo_label_path"] + "/" + pl_pkl
+            pseudo_data_pkl = os.path.join(
+                self.config['pseudo_label_path'], 
+                f'{case}.pkl'
+            )
+            if os.path.exists(pseudo_data_pkl):
+                print(f'{case}.pkl')
+                with open(pseudo_data_pkl, 'rb') as f:
+                    while True:
+                        try:
+                            pseudo_data = pickle.load(f)
+                            if isinstance(pseudo_data, np.ndarray) and len(pseudo_data.shape) == 2:
+                                data.append(pseudo_data)
+                            else:
+                                print(f"Warning: Invalid pseudo data format for {case}")
+                        except EOFError:
+                            break
+            else:
+                data_pkl = os.path.join(
+                    self.config['data_pkl_path'], 
+                    case, 
+                    f'{case}.pkl'
+                )
+                if os.path.exists(data_pkl):
                     with open(data_pkl, 'rb') as f:
                         while True:
                             try:
-                                data.append(pickle.load(f))
+                                original_data = pickle.load(f)
+                                if isinstance(original_data, np.ndarray) and len(original_data.shape) == 2:
+                                    data.append(original_data)
+                                else:
+                                    print(f"Warning: Invalid original data format for {case}")
                             except EOFError:
                                 break
+        if data:
+            valid_data = []
+            for i, d in enumerate(data):
+                if len(d.shape) == 2 and d.shape[1] == 5:
+                    valid_data.append(d)
+                else:
+                    print(f"Skipping invalid data at index {i}: shape {d.shape}")
+            
+            if valid_data:
+                mix_data = np.concatenate(valid_data, axis=0)
+                return mix_data
             else:
-                data_pkl = self.config['data_pkl_path'] + f'/{case}/{case}.pkl'
-                with open(data_pkl, 'rb') as f:
-                    while True:
-                        try:
-                            data.append(pickle.load(f))
-                        except EOFError:
-                            break
-
-        # data 0: tumor, 1: normal, 2: background
-        mix_data = np.concatenate(data)
-        print(np.shape(mix_data))
-        return mix_data
+                print("No valid data found!")
+                return np.empty((0, 5))
+        else:
+            print("No data loaded!")
+            return np.empty((0, 5))
 
     def geometric_series_sum(self, a, r, n):
         return a * (1.0 - pow(r, n)) / (1.0 - r)
@@ -83,7 +113,6 @@ class TumorDataset(Dataset):
         x = x - offset
         y = y - offset
 
-        # 需確認是否倍率是2倍遞減
         x = int(x / pow(2, level))
         y = int(y / pow(2, level))
         
@@ -110,7 +139,6 @@ class TumorDataset(Dataset):
         return img
 
     def get_data(self, idx):
-        # data = [wsi_path, level, sx, sy, label]
         img_high = self.read2patch(self.datas[idx][0], self.datas[idx][2], self.datas[idx][3],level=0)
         img_low = self.read2patch(self.datas[idx][0], self.datas[idx][2], self.datas[idx][3],level=2)
         case = self.datas[idx][0].split('/')[-1].split('.')[0]
@@ -118,15 +146,5 @@ class TumorDataset(Dataset):
             img_high = img_high[:, :, 0:3]
             img_low = img_low[:, :, 0:3]
 
-#         gt_mask_case = os.path.basename(self.datas[idx][0]).split('.')[0]
-#         gt_mask_path = self.config['data_pkl_path']+f'/{gt_mask_case}/{gt_mask_case}_mask.tiff'
-#         gt_mask = self.read2patch(gt_mask_path, self.datas[idx][2], self.datas[idx][3],level=0)
-#         if 255 in gt_mask:
-#             label = 1
-#         else:
-#             label = 0
-        
         return img_high, img_low, int(self.datas[idx][4]), case
-
-# -
 

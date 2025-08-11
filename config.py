@@ -12,19 +12,18 @@ def read_file_list(filename):
 # +
 train_list_path = 'train_list.txt'
 val_list_path = 'val_list.txt'
-# set yout work root path
-work_root_path = os.path.join('/work', os.listdir('/work')[0])
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 config = {
-    "preprocess_save_path":'/work/rara0857/Baseline3/PROCESSED_DATA/CASE_UUID',
-    "wsi_root_path": "/work/rara0857/Baseline3/liver/tifs",
-    "data_pkl_path": "/work/rara0857/Baseline3/PROCESSED_DATA/CASE_UUID/",
-    "level":0,
-    "patch_size" :256,
-    "stride_size":128,
-    "train_list": read_file_list(train_list_path),
-    "val_list": read_file_list(val_list_path),
+    "preprocess_save_path": os.path.join(BASE_DIR, "PROCESSED_DATA", "CASE_UUID"),
+    "wsi_root_path": os.path.join(BASE_DIR, "liver", "tifs"),
+    "data_pkl_path": os.path.join(BASE_DIR, "PROCESSED_DATA", "CASE_UUID"),
+    "level": 0,
+    "patch_size": 256,
+    "stride_size": 128,
+    "train_list": read_file_list(os.path.join(BASE_DIR, train_list_path)),
+    "val_list": read_file_list(os.path.join(BASE_DIR, val_list_path)),
 }
-
 # -
 

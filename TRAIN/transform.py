@@ -250,7 +250,6 @@ class transform_image_train(object):
         self.augment_pool = fixmatch_augment_pool()
     def __call__(self, img):
         global number_operation
-        # 使用絕對路徑載入 aug.npy
         current_dir = os.path.dirname(os.path.abspath(__file__))
         aug_file = os.path.join(current_dir, 'aug.npy')
         if os.path.isfile(aug_file):
