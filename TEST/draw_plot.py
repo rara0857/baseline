@@ -2,10 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# 讀取 result.csv
 df = pd.read_csv('result.csv')
 
-# --------- 畫 IOU ---------
 plt.figure(figsize=(16, 6))
 bars = plt.bar(df['id'], df['iou'], color='skyblue', label='IOU')
 avg = df['iou'].mean()
@@ -18,7 +16,6 @@ plt.tight_layout()
 plt.savefig('iou_bar.png')
 plt.close()
 
-# --------- 畫 F1 ---------
 plt.figure(figsize=(16, 6))
 bars = plt.bar(df['id'], df['f1'], color='orange', label='F1')
 avg = df['f1'].mean()

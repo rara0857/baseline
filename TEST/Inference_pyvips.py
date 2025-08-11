@@ -19,7 +19,7 @@ def read_file_list(filename):
                 file_list.append(n.strip())
         return file_list
     except:
-        print('[ERROR] Read file not found' + filename)
+        print('[ERROR] Read file not found ' + filename)
         return []
 
 
@@ -61,7 +61,11 @@ class ClassifyModel():
     def init_setting(self):
 #         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.device = torch.device("cuda:" + self.cuda_number if torch.cuda.is_available() else "cpu")
-        self.checkpoint = torch.load(self.config['log_string_dir'] + self.config['best_weights'] )
+        checkpoint_path = os.path.join(
+            self.config['log_string_dir'], 
+            self.config['best_weights']
+        )
+        self.checkpoint = torch.load(checkpoint_path)
 
     def forward_step(self, batch):
         img_high, img_low, x, y, label = batch
@@ -228,15 +232,19 @@ if _round <= 11:
 
 def cut_unlabel_file_to_train(case, tumor_pl, normal_pl):
     
-    project = os.getcwd().split('/')[3]
-    pseudo_label_pkl_path = "/work/rara0857/Baseline3/PROCESSED_DATA/CASE_UUID/{}_pseudo/{}.pkl".format(project, case)
-    wsi_path = "/work/rara0857/Baseline3/liver/tifs/{}.tif".format(case)
-    tumor_txt_path = "choose_patch_name/tumor/{}.txt".format(case)
-    normal_txt_path = "choose_patch_name/normal/{}.txt".format(case)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    PROJECT_ROOT = os.path.dirname(BASE_DIR)
+    PROJECT_NAME = os.path.basename(PROJECT_ROOT)
+    
+    pseudo_label_pkl_path = os.path.join(PROJECT_ROOT, 'PROCESSED_DATA', 'CASE_UUID', f'{PROJECT_NAME}_pseudo', f'{case}.pkl')
+    wsi_path = os.path.join(PROJECT_ROOT, 'liver', 'tifs', f'{case}.tif')
+    tumor_txt_path = os.path.join('choose_patch_name', 'tumor', f'{case}.txt')
+    normal_txt_path = os.path.join('choose_patch_name', 'normal', f'{case}.txt')
     pl = []
     
-    # 確保目錄存在
     os.makedirs(os.path.dirname(pseudo_label_pkl_path), exist_ok=True)
+    os.makedirs(os.path.dirname(tumor_txt_path), exist_ok=True)
+    os.makedirs(os.path.dirname(normal_txt_path), exist_ok=True)
     
     f = open(tumor_txt_path, 'a')
     for tile_name in tumor_pl:

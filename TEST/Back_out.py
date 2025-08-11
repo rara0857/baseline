@@ -14,9 +14,11 @@ import pickle
 
 class back_out():
     
-    def __init__(self , file_name):
-        
+    def __init__(self, file_name):
         self.file_name = file_name
+        self.BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        self.PROJECT_ROOT = os.path.dirname(self.BASE_DIR)
+        self.PROJECT_NAME = os.path.basename(self.PROJECT_ROOT)
         self.remove_patch(file_name)
     
     def read_file_list(self , filename):
@@ -53,8 +55,8 @@ class back_out():
         return coefficients, p
     
     def remove_patch(self , file_name):
-        pseudo_path = "/work/rara0857/Baseline3/PROCESSED_DATA/CASE_UUID/Baseline3_pseudo/{}.pkl".format(file_name)
-        wsi_path = '/work/rara0857/Baseline3/liver/tifs/{}.tif'.format(self.file_name)
+        pseudo_path = os.path.join(self.PROJECT_ROOT, 'PROCESSED_DATA', 'CASE_UUID', f'{self.PROJECT_NAME}_pseudo', f'{file_name}.pkl')
+        wsi_path = os.path.join(self.PROJECT_ROOT, 'liver', 'tifs', f'{self.file_name}.tif')
         print(pseudo_path)
         print(wsi_path)
         tumor_excel , normal_excel =  self.read_excel(file_name)

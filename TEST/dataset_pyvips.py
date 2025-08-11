@@ -22,7 +22,7 @@ class   TumorDataset(Dataset):
         self.transform = transform
         self.read_wsi(case)
 
-        data_pkl_path = self.config['data_pkl_path'] + f"{case}/{case}.pkl"
+        data_pkl_path = os.path.join(self.config['data_pkl_path'], case, f"{case}.pkl")
         save_dir = os.path.dirname(data_pkl_path)
 
         self.patch_list = self.load_data_pkl(data_pkl_path)
@@ -90,9 +90,13 @@ class   TumorDataset(Dataset):
         # Now pkl files should contain labels (either ground truth or -1 for unknown)
         return img_high, img_low, x_coord, y_coord, int(self.patch_list[idx][4])
 
-    def read_wsi(self,case):
-        wsi_path = self.config['wsi_root_path'] + f'{case}.tif'
-        mask_path = self.config["mask_path"]+f"{case}.tif"
+    def read_wsi(self, case):
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        PROJECT_ROOT = os.path.dirname(BASE_DIR)
+        
+        wsi_path = os.path.join(PROJECT_ROOT, 'liver', 'tifs', f'{case}.tif')
+        mask_path = os.path.join(PROJECT_ROOT, 'liver', 'masks', f'{case}.tif')
+        
         self.slide =pyvips.Image.new_from_file(wsi_path, page = 0) # high level
         self.slide_low = pyvips.Image.new_from_file(wsi_path, page = 2) # low level
         self.mask = pyvips.Image.new_from_file(mask_path, page = 0)

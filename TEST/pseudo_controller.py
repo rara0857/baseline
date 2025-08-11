@@ -19,14 +19,14 @@ def fun(number):
 # %%
 
 
-POOL_SIZE = 2
+POOL_SIZE = 1
 pool = Pool(POOL_SIZE)
 
 
 # %%
 
 
-l=[0,1]
+l=[0]
 
 
 # %%

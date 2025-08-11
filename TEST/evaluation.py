@@ -9,10 +9,11 @@ from config_test import config
 from Mask2json import mask_2_ASAP_Json, json_to_xml
 import cv2
 from concurrent.futures import ThreadPoolExecutor
+import PIL.Image
 
 
 def init_para(case_name):
-    slide_path = config['wsi_root_path'] + f'/{case_name}.tif'
+    slide_path = os.path.join(config['wsi_root_path'], f'{case_name}.tif')
     slide = pyvips.Image.new_from_file(slide_path, page=0)
     img_shape = [int(slide.height / config['stride_size']),
                  int(slide.width / config['stride_size'])]
@@ -131,10 +132,13 @@ def save_tif(img_argMax, case_path, save_mask_path):
 
 def save_evaluation(case_path):
     global show_img_argMax
-    output_path = config['data_pkl_path'] + case_path + '/'
-    o_file = output_path + 'score.txt'
+    output_path = os.path.join(config['data_pkl_path'], case_path, '')
+    o_file = os.path.join(output_path, 'score.txt')
 
-    gt_path = config["mask_path"] + f"{case_path}.tif"
+    gt_path = os.path.join(config["mask_path"], f"{case_path}.tif")
+    
+    # 確保輸出目錄存在
+    os.makedirs(output_path, exist_ok=True)
     
     try:
         img_GT = pyvips.Image.openslideload(gt_path, level=0)
@@ -175,7 +179,7 @@ def save_evaluation(case_path):
     show_img_GT = np.where(show_img_GT > 0, 255, 0).astype(np.uint8)
     
     im1 = PIL.Image.fromarray(show_img_GT)
-    im1.save(output_path + "img_GT.png")
+    im1.save(os.path.join(output_path, "img_GT.png"))
 
     print(f"show_img_argMax stats: min={show_img_argMax.min()}, max={show_img_argMax.max()}, sum={show_img_argMax.sum()}")
     if show_img_argMax.max() > 0:
@@ -186,7 +190,7 @@ def save_evaluation(case_path):
     
     show_img_argMax = np.uint8(show_img_argMax)
     im1 = PIL.Image.fromarray(show_img_argMax)
-    im1.save(output_path + "img_argMax.png")
+    im1.save(os.path.join(output_path, "img_argMax.png"))
 
     # --- 強制 shape 對齊 ---
     h = min(show_img_argMax.shape[0], show_img_GT.shape[0])
