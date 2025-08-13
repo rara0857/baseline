@@ -52,56 +52,32 @@ class TumorDataset(Dataset):
         print(self.project)
         data = []
         for case in case_list:
-            pseudo_data_pkl = os.path.join(
-                self.config['pseudo_label_path'], 
-                f'{case}.pkl'
-            )
-            if os.path.exists(pseudo_data_pkl):
-                print(f'{case}.pkl')
-                with open(pseudo_data_pkl, 'rb') as f:
-                    while True:
-                        try:
-                            pseudo_data = pickle.load(f)
-                            if isinstance(pseudo_data, np.ndarray) and len(pseudo_data.shape) == 2:
-                                data.append(pseudo_data)
-                            else:
-                                print(f"Warning: Invalid pseudo data format for {case}")
-                        except EOFError:
-                            break
-            else:
-                data_pkl = os.path.join(
-                    self.config['data_pkl_path'], 
-                    case, 
-                    f'{case}.pkl'
-                )
-                if os.path.exists(data_pkl):
+            if case == self.project:
+                print("preparing dataset pseudo label")
+                for pl_pkl in os.listdir(self.config["pseudo_label_path"]):
+                    print(pl_pkl)
+                    data_pkl = os.path.join(self.config["pseudo_label_path"], pl_pkl)
                     with open(data_pkl, 'rb') as f:
                         while True:
                             try:
-                                original_data = pickle.load(f)
-                                if isinstance(original_data, np.ndarray) and len(original_data.shape) == 2:
-                                    data.append(original_data)
-                                else:
-                                    print(f"Warning: Invalid original data format for {case}")
+                                data.append(pickle.load(f))
                             except EOFError:
                                 break
-        if data:
-            valid_data = []
-            for i, d in enumerate(data):
-                if len(d.shape) == 2 and d.shape[1] == 5:
-                    valid_data.append(d)
-                else:
-                    print(f"Skipping invalid data at index {i}: shape {d.shape}")
-            
-            if valid_data:
-                mix_data = np.concatenate(valid_data, axis=0)
-                return mix_data
             else:
-                print("No valid data found!")
-                return np.empty((0, 5))
+                data_pkl = os.path.join(self.config['data_pkl_path'], case, f'{case}.pkl')
+                with open(data_pkl, 'rb') as f:
+                    while True:
+                        try:
+                            data.append(pickle.load(f))
+                        except EOFError:
+                            break
+        if data:
+            mix_data = np.concatenate(data)
+            print(np.shape(mix_data))
+            return mix_data
         else:
-            print("No data loaded!")
-            return np.empty((0, 5))
+            print("Warning: No data loaded!")
+            return np.array([])
 
     def geometric_series_sum(self, a, r, n):
         return a * (1.0 - pow(r, n)) / (1.0 - r)

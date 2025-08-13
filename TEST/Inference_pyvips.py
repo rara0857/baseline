@@ -34,7 +34,6 @@ def load_data_pkl(pkl_path):
 
     return data
 
-
 class ClassifyModel():
     def __init__(self, config, case, cuda_number):
         super().__init__()
@@ -55,7 +54,7 @@ class ClassifyModel():
         self.predict_dict = {}
             
     def data_loader(self,case_name):
-        dataloader = TumorDataModule(self.config,case=case_name)
+        dataloader = dataloader = TumorDataModule(self.config, case=case_name, use_augmentation=True)
         self.test_dataloader = dataloader.test_dataloader()
 
     def init_setting(self):

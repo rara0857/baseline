@@ -75,8 +75,6 @@ class   TumorDataset(Dataset):
         return img
 
     def get_data(self, idx):
-        # data = [wsi_path, level, sx, sy] for inference, [wsi_path, level, sx, sy, label] for training
-        # 確保座標是整數類型
         x_coord = int(self.patch_list[idx][2])
         y_coord = int(self.patch_list[idx][3])
         
@@ -87,7 +85,6 @@ class   TumorDataset(Dataset):
             img_high = img_high[:, :, 0:3]
             img_low = img_low[:, :, 0:3]
 
-        # Now pkl files should contain labels (either ground truth or -1 for unknown)
         return img_high, img_low, x_coord, y_coord, int(self.patch_list[idx][4])
 
     def read_wsi(self, case):

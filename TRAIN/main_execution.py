@@ -366,9 +366,6 @@ class ClassifyModel():
 
         diff = sum(abs(np.array(tumor_confidence_identtity) - np.array(tumor_confidence_aug))) / self.config["unlabel_batch_size"]
         return diff
-#         var =  sum(np.var([tumor_confidence_identtity, tumor_confidence_aug],axis = 0)) / self.config["unlabel_batch_size"]
-#         print('var : ' + str(var))f
-#         return var
 
 
 if config['is_train'] == True:

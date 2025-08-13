@@ -216,7 +216,6 @@ def random_choose_op():
     ops = random.choices(comb, weights = weight)
     
     print('== random_choose_op : ' + str(ops[0]))
-    # 使用絕對路徑儲存 aug.npy
     current_dir = os.path.dirname(os.path.abspath(__file__))
     aug_file = os.path.join(current_dir, 'aug.npy')
     np.save(aug_file, ops[0])
@@ -226,7 +225,6 @@ def random_choose_op():
 # %%
 class transform_image_unlabel(object):
     def __init__(self):
-        # 使用絕對路徑載入 aug.npy
         current_dir = os.path.dirname(os.path.abspath(__file__))
         aug_file = os.path.join(current_dir, 'aug.npy')
         index = np.load(aug_file)
@@ -238,8 +236,6 @@ class transform_image_unlabel(object):
         for op, max_v, bias in self.ops:
             v = np.random.randint(1, 10)
             img = op(img, v=v, max_v=max_v, bias=bias)
-#         if random.random() < 0.5:
-#             img = CutoutAbs(img, int(150*0.5))
         return img
 
 
@@ -272,12 +268,8 @@ class transform_image_train(object):
             if random.random() < 0.5:
                 v = np.random.randint(1, 10)
                 img = op(img, v=v, max_v=max_v, bias=bias)
-#         if random.random() < 0.5:
-#             img = CutoutAbs(img, int(150*0.5))
         return img
 
-
-# %%
 def adjust_weight(ops, diff):
     
     global weight

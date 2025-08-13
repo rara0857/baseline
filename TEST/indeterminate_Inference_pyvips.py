@@ -58,7 +58,7 @@ class ClassifyModel():
         self.predict_dict_3 = {}
             
     def data_loader(self,case_name):
-        dataloader = TumorDataModule(self.config,case=case_name)
+        dataloader = TumorDataModule(self.config, case=case_name, use_augmentation=True)
         self.test_dataloader = dataloader.test_dataloader()
 
     def init_setting(self):

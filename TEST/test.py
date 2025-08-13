@@ -17,7 +17,6 @@ def read_file_list(filename):
 
 case_list = read_file_list('../test_list.txt')
 
-# 自動檢測可用的 GPU 數量
 available_gpus = torch.cuda.device_count()
 print(f"Available GPUs: {available_gpus}")
 
@@ -38,7 +37,7 @@ else:
 
 def run_inference(model, case, device):
     from evaluation import init_para, save_evaluation, show_testing_img
-    dataloader = TumorDataModule(config, case=case).test_dataloader()
+    dataloader = TumorDataModule(config, case=case, use_augmentation=False).test_dataloader()
     model.eval()
     softmax_layer = nn.Softmax(dim=1)
     init_para(case)
@@ -48,7 +47,6 @@ def run_inference(model, case, device):
             img_high_1, img_low_1, img_high_2, img_low_2, img_high_3, img_low_3, x, y, label = batch
             img_high_1, img_low_1 = img_high_1.to(device), img_low_1.to(device)
             
-            # 使用 autocast 進行混合精度推理
             if torch.cuda.is_available():
                 with torch.autocast(device_type='cuda'):
                     prob = model(img_high_1, img_low_1)
@@ -66,7 +64,6 @@ model = net_20x_5x(num_classes=num_class)
 checkpoint_path = os.path.join(config['log_string_dir'], config['best_weights'])
 print(f"Loading checkpoint from: {checkpoint_path}")
 
-# 設定裝置
 if torch.cuda.is_available() and device_ids:
     device = torch.device(f"cuda:{main_device}")
     checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=True)
@@ -77,17 +74,7 @@ else:
     checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=True)
     print("Using CPU for inference")
 
-try:
-    model.load_state_dict(checkpoint['model_state_dict'])
-except RuntimeError:
-    # 處理 DataParallel 包裝的模型
-    if torch.cuda.is_available() and device_ids:
-        new_state_dict = {k.replace("module.", ""): v for k, v in checkpoint['model_state_dict'].items()}
-        model.module.load_state_dict(new_state_dict)
-    else:
-        # CPU 情況下，移除 module. 前綴
-        new_state_dict = {k.replace("module.", ""): v for k, v in checkpoint['model_state_dict'].items()}
-        model.load_state_dict(new_state_dict)
+model.load_state_dict(checkpoint['model_state_dict'])
 
 model.to(device)
 model.eval()

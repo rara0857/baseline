@@ -115,6 +115,14 @@ if __name__ == '__main__':
     patch_size = config['patch_size']
     stride_size = config['stride_size']
 
+    pkl_file_path = config['data_pkl_path'] + f"/{case}/{case}.pkl"
+    if os.path.exists(pkl_file_path):
+        print(f"PKL 檔案已存在: {pkl_file_path}")
+        print("跳過處理！")
+        sys.exit(0)
+    
+    print(f"開始處理 case: {case}")
+    print(f"將儲存至: {pkl_file_path}")
 
     data_list = []
     wsi_path = f'{wsi_root_path}/{case}.tif'
@@ -143,10 +151,10 @@ if __name__ == '__main__':
     print(patch_region)
     print('patch_region: ', patch_region.shape)
 
+    # 確保目錄存在
+    os.makedirs(os.path.dirname(pkl_file_path), exist_ok=True)
 
-    data_pkl_path = config['data_pkl_path'] + f"{case}/{case}.pkl"
-
-    with open(data_pkl_path, 'wb') as w:
+    with open(pkl_file_path, 'wb') as w:
         pickle.dump(patch_region, w)
 
     print("Finish!")

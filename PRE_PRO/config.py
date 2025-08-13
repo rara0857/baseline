@@ -24,6 +24,4 @@ config = {
     "level": 0,
     "patch_size": 256,
     "stride_size": 128,
-    "train_list": read_file_list(train_list_path),
-    "val_list": read_file_list(val_list_path),
 }

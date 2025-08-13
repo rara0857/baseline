@@ -29,6 +29,26 @@ def move_weight(round_):
     weight_path = os.path.join('TRAIN', 'LOG', 'base40_lvl4_40x_10x_test', 'best_model.pt')
     des_path = os.path.join('TRAIN', 'prev_logs', f'best_model_{round_}.pt')
     shutil.copyfile(weight_path, des_path)
+
+def clean_processed_data():
+    processed_data_path = os.path.join('PROCESSED_DATA', 'CASE_UUID')
+    
+    if not os.path.exists(processed_data_path):
+        return
+    
+    for case_folder in os.listdir(processed_data_path):
+        case_folder_path = os.path.join(processed_data_path, case_folder)
+        if os.path.isdir(case_folder_path):
+            for filename in os.listdir(case_folder_path):
+                file_path = os.path.join(case_folder_path, filename)
+                if not filename.endswith('.pkl'):
+                    try:
+                        if os.path.isfile(file_path):
+                            os.remove(file_path)
+                        elif os.path.isdir(file_path):
+                            shutil.rmtree(file_path)
+                    except Exception as e:
+                        pass
     
 def init_create_file():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -43,7 +63,6 @@ def init_create_file():
         shutil.rmtree('TRAIN/prev_logs')         
     except:
         pass
-        
     try:
         os.remove("TEST/output.txt")
     except:
@@ -72,9 +91,10 @@ def write_time(type_):
 iter_number = [5000, 8000, 11000, 14000, 17000, 20000, 23000, 26000, 26000, 33000]
 n = 0
 root = os.getcwd()
+iterations = len(iter_number)
 
-while n <= 9:
-    print(n)
+while n < iterations:
+    print(f"Round {n+1}/{iterations}: {iter_number[n]} iterations")
     
     if n <= 8 and n == 11:
         random.seed(5)
@@ -82,6 +102,7 @@ while n <= 9:
     if n == 0:
         print('[INFO] make init file')
         init_create_file()
+        clean_processed_data()
         
     os.chdir(root)
     
@@ -99,8 +120,8 @@ while n <= 9:
     except Exception as e:
         print(e)
         pass
-    
-    if n != 9:
+
+    if n != iterations-1:
         os.chdir(os.path.join(root, 'TEST'))
         inference_result = os.system('python pseudo_controller.py ' + str(n+1))
         write_time("test")

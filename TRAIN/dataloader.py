@@ -38,10 +38,10 @@ class TumorDataModule():
         self.valid_dataset = datasets
 
     def train_dataloader(self):
-        return DataLoader(self.train_dataset, batch_size=self.train_batch_size, pin_memory=True, num_workers=4, shuffle=True, drop_last=True)
+        return DataLoader(self.train_dataset, batch_size=self.train_batch_size, pin_memory=True, num_workers=8, shuffle=True, drop_last=True)
 
     def val_dataloader(self):
-        return DataLoader(self.valid_dataset, batch_size=self.val_batch_size, pin_memory=True, num_workers=4, drop_last=True, shuffle=True)
+        return DataLoader(self.valid_dataset, batch_size=self.val_batch_size, pin_memory=True, num_workers=8, drop_last=True, shuffle=True)
 
 
 
